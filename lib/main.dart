@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'MainScreen.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -7,14 +9,20 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Spend Smarter, Save More',
+      debugShowCheckedModeBanner: false,
       home: SpendSmarterScreen(),
     );
   }
 }
 
 class SpendSmarterScreen extends StatelessWidget {
+  // Define tealGreen color using Flutter's Colors.
+  final Color tealGreen = Colors.teal;
+
+  const SpendSmarterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,33 +30,82 @@ class SpendSmarterScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(
-              'https://s3-alpha-sig.figma.com/img/7c5c/258a/8e5e2e65bc4ac3777434dbe5f741c143?Expires=1732492800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=DMFFCM-99E5g5N5fcbbtII-VwMX4DP9r5hHPliGzgHRZzLiamWeopJY3iP88Kvj87Av7ZSZCHzEX0uxJAdYsBpVSpzeMvPWxW5Xe66vZG0U4i2cYZY0l25x1ZhNCJeLk0DVqr9BdPpypc43H-4hR7GdCkpVSXBr4Rcrjvp0VFty2WiDrW2KDi4ARsCP8YIAeEnhw4MzGkoHBl~5ihhIx~8qQGenlxsyiIHTNalXiUBAGM~q8HOiXJh6k25ezQq8ynG9Xxr~cYcKWAsvgWmyo5XKgcLsb3znoQ5MsHNt6FFzm~kbdM3kYyz2CRaoOPwfVndCb4vFNwEFnlQTGfWvHpg__',
-              width: 100,
-              height: 100,
+            Image.asset(
+"assets/mainlogoPNG.PNG"      ,
+              width: 450,
+              height: 400,
+              fit: BoxFit.contain,
             ),
-            const SizedBox(height: 16.0),
-            const Text(
-              'Spend Smarter\nSave More',
+            const SizedBox(height: 30),
+            Text(
+              'Spend Smarter',
               style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
+                fontSize: 32,
+                fontWeight: FontWeight.w600,
+                color: tealGreen,
+                height: 1.2,
               ),
-              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 32.0),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to the "Get Started" screen
-              },
-              child: const Text('Get Started'),
+            Text(
+              'Save More',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.w600,
+                color: tealGreen,
+                height: 1.2,
+              ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 32),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0), // Add padding
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MainScreen()),
+                  );               },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: tealGreen,
+                  minimumSize: const Size(double.infinity, 56),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  elevation: 5, // Add shadow to the button
+                  shadowColor: Colors.black.withOpacity(0.25), // Customize shadow color
+                ),
+                child: const Text(
+                  'Get Started',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
             TextButton(
               onPressed: () {
-                // Navigate to the "Log In" screen
+                // Navigate to Login screen
               },
-              child: const Text('Already Have Account? Log In'),
+              child: RichText(
+                text: TextSpan(
+                  text: 'Already Have Account? ',
+                  style: const TextStyle(
+                    color: Colors.black54,
+                    fontSize: 14,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: 'Log In',
+                      style: TextStyle(
+                        color: tealGreen,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
